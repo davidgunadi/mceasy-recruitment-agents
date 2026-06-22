@@ -49,3 +49,24 @@ outputs/
 - `screen` and `feedback` against a non-existent ID tell the recruiter to run `setup` first.
 - The agent ranks and explains; **the recruiter decides**. Never auto-reject.
 - CVs are personal data — keep everything local for the PoC. Define a retention rule before going to production (CDSO sign-off required).
+
+## Scoring is deterministic — never grade by hand
+
+- The cv-screener agent emits **raw judgments only**: must-have status, each
+  nice-to-have's `raw` (0–3) + `weight`, and red flags. It must NOT output
+  `tier` or `score_pct`.
+- A script computes `score_pct` and `tier` so the same CV always lands in the
+  same tier: `.claude/skills/screen-cv/score.py` (Python) and `score.ps1`
+  (PowerShell). Run one of them in the SCREEN flow; never compute tier/% in chat.
+  Fixed formula: `max = sum(weights) × 3`, `pct = achieved ÷ max × 100`.
+  (History: hand-computed math once divided by the wrong max and bumped a
+  candidate from Good fit to Best fit.)
+
+## Runtime / environment
+
+- **Do not assume Python or Node is installed.** Some dev machines have neither
+  (only PowerShell). Provide a PowerShell path for any script the skill shells
+  out to, and pick the runtime that exists at run time.
+- Known gap: the DOCX-parsing step in `SKILL.md` still calls `pandoc`/`python3`
+  and will fail on a Python-less machine. PDFs and `.txt` are unaffected.
+  Convert it to a PowerShell fallback before relying on `.docx` intake.
