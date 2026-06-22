@@ -28,25 +28,25 @@ Score each 0–3: 0 = absent, 1 = partial/implied, 2 = present, 3 = strong evide
 
 ## Red flags
 
-| # | Flag | How to detect | Severity (note / concern / disqualify) |
-|---|------|--------------|----------------------------------------|
-| R1 | Research-only, never shipped | Strong publication/Kaggle record but no production model with real users/data | disqualify |
-| R2 | API-wrapper only — cannot train or optimize | Only uses hosted vision APIs / pre-built endpoints; no evidence of training, fine-tuning, or optimizing models | disqualify |
-| R3 | Accuracy tunnel-vision / ignores cost, latency, deployment | All accuracy metrics, no mention of cost, latency, edge, or deployment anywhere | concern |
-| R4 | Classical-ML / tabular-only background | Profile centers on tabular/structured-data ML, forecasting, recommenders with little to no vision depth | concern |
-| R5 | Backend-only or dashboard-only profile | Strong software/backend or BI/dashboard history but no real CV modeling | concern |
-| R6 | Buzzword-heavy, substance-light | Many AI buzzwords / model names with no concrete shipped outcomes, scale, or metrics | concern |
-| R7 | Location outside IN / VN / ID with no relocation signal | Based elsewhere with no stated intent to work from the three regions | concern |
-| R8 | Job-hopping at senior level | Multiple sub-12-month senior stints with no clear rationale | note |
+| #   | Flag                                                       | How to detect                                                                                                  | Severity (note / concern / disqualify) |
+| --- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| R1  | Research-only, never shipped                               | Strong publication/Kaggle record but no production model with real users/data                                  | disqualify                             |
+| R2  | API-wrapper only — cannot train or optimize                | Only uses hosted vision APIs / pre-built endpoints; no evidence of training, fine-tuning, or optimizing models | disqualify                             |
+| R3  | Accuracy tunnel-vision / ignores cost, latency, deployment | All accuracy metrics, no mention of cost, latency, edge, or deployment anywhere                                | concern                                |
+| R4  | Classical-ML / tabular-only background                     | Profile centers on tabular/structured-data ML, forecasting, recommenders with little to no vision depth        | concern                                |
+| R5  | Backend-only or dashboard-only profile                     | Strong software/backend or BI/dashboard history but no real CV modeling                                        | concern                                |
+| R6  | Buzzword-heavy, substance-light                            | Many AI buzzwords / model names with no concrete shipped outcomes, scale, or metrics                           | concern                                |
+| R7  | Location outside IN / VN / ID with no relocation signal    | Based elsewhere with no stated intent to work from the three regions                                           | concern                                |
+| R8  | Job-hopping at senior level                                | Multiple sub-12-month senior stints with no clear rationale                                                    | note                                   |
 
 ## Tier thresholds
 
-| Tier | Rule |
-|------|------|
-| Best fit | All must-haves met + weighted score ≥ 80% of max + zero disqualifying red flags |
-| Good fit | All must-haves met + weighted score ≥ 50% of max + no disqualifying red flags |
-| Moderate fit | 1 must-have missing OR weighted score 30–49% OR concern-level red flag |
-| Not a fit | 2+ must-haves missing OR any disqualifying red flag |
+| Tier         | Rule                                                                            |
+| ------------ | ------------------------------------------------------------------------------- |
+| Best fit     | All must-haves met + weighted score ≥ 80% of max + zero disqualifying red flags |
+| Good fit     | All must-haves met + weighted score ≥ 50% of max + no disqualifying red flags   |
+| Moderate fit | 1 must-have missing OR weighted score 30–49% OR concern-level red flag          |
+| Not a fit    | 2+ must-haves missing OR any disqualifying red flag                             |
 
 ## Scoring notes
 
