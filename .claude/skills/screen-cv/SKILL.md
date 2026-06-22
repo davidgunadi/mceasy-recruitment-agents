@@ -121,9 +121,38 @@ Usage:
    - `cv_text` (extracted text)
    - `candidate_name`
 
-   Collect the JSON record returned by each screener invocation.
+   Collect the JSON record returned by each screener invocation. Each record
+   carries only **raw** judgments (must-have status, nice-to-have `raw`+`weight`,
+   red flags) — it does **not** contain `tier` or `score_pct`.
 
-6. **Compile the spreadsheet.**
+6. **Compute tier and score deterministically (code, never by hand).**
+
+   The percentage and tier are calculated by a script, not by the model, so the
+   same CV always yields the same result. The fixed formula is:
+   - `max possible weighted` = (sum of all nice-to-have weights) × 3
+   - `score_pct` = achieved weighted ÷ max possible × 100
+   - `tier` from the rubric thresholds, applied in strict precedence:
+     `Not a fit` (2+ must-haves missing OR any disqualifying flag) →
+     `Moderate fit` (1 missing OR a concern flag OR pct < 50) →
+     `Best fit` (pct ≥ 80) → else `Good fit`.
+
+   Write all collected records as a JSON array to `outputs/_records-<job_id>.json`,
+   then run the scorer (it prints the enriched records, with `tier` + `score_pct`
+   filled in, to stdout — capture them for the spreadsheet):
+
+   ```bash
+   # macOS / Linux (Python):
+   python3 .claude/skills/screen-cv/score.py outputs/_records-<job_id>.json
+   ```
+   ```powershell
+   # Windows (no Python needed):
+   powershell -NoProfile -File .claude/skills/screen-cv/score.ps1 outputs/_records-<job_id>.json
+   ```
+
+   Use whichever runtime exists on the machine. **Never compute `tier` or
+   `score_pct` yourself** — always take them from the scorer's output.
+
+7. **Compile the spreadsheet.**
 
    Use the `xlsx` skill to produce `outputs/screening-<job_id>-<YYYY-MM-DD>.xlsx`.
 
@@ -156,11 +185,11 @@ Usage:
    - Freeze the header row.
    - Auto-fit column widths.
 
-7. **Move processed CVs.**
+8. **Move processed CVs.**
    Move all successfully screened files from `jobs/<job_id>/inbox/` to
    `jobs/<job_id>/processed/`. Leave parse-error files in inbox with a note.
 
-8. **Summary.**
+9. **Summary.**
    Report: total CVs screened, breakdown by tier, output file path, and any
    parse errors to follow up on.
 

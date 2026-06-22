@@ -34,15 +34,20 @@ For each M-criterion in the rubric, determine: **met** / **partial** / **missing
 A "partial" on a must-have counts as missing for tier-capping purposes.
 
 ### Step 2 — Nice-to-haves
-For each N-criterion, score 0–3 as defined in the rubric. Multiply by weight.
-Sum weighted scores. Compute percentage of max possible.
+For each N-criterion, assign a raw score 0–3 as defined in the rubric, and record
+its weight. **Do NOT compute the weighted total, the percentage, or the max
+possible** — the skill does that arithmetic in code (`score.py` / `score.ps1`) so
+the result is identical on every run. Your job is only the raw 0–3 judgment.
 
 ### Step 3 — Red flags
 Check for each R-criterion. Note severity: "note" / "concern" / "disqualify".
 
-### Step 4 — Tier assignment
-Apply the rubric's tier thresholds exactly. Do not override thresholds — if you
-think the thresholds are wrong for this candidate, note it in `screener_note`.
+### Step 4 — Tier (assigned by the skill, not by you)
+**Do NOT assign a tier or a percentage.** The skill computes `score_pct` and
+`tier` deterministically from your raw scores using the rubric thresholds. If you
+believe the thresholds would mis-rank this candidate, say so in `screener_note` —
+but never output a tier yourself (the only exception is the parse-error case in
+the Rules below).
 
 ### Step 5 — Rationale
 Write a 2–4 sentence plain-English rationale a recruiter can read in 10 seconds.
@@ -50,22 +55,22 @@ Focus on the *decisive* evidence — the 1–2 things that most determined the t
 
 ## Output format
 
-Emit a single JSON object (no markdown wrapper) with exactly these fields:
+Emit a single JSON object (no markdown wrapper) with exactly these fields.
+**Do not include `tier`, `score_pct`, or `weighted`** — the skill's scorer adds
+those. Provide only `raw` and `weight` for each nice-to-have.
 
 ```json
 {
   "candidate_name": "Jane Doe",
   "source_file": "jane_doe_cv.pdf",
-  "tier": "Good fit",
-  "score_pct": 72,
   "must_haves": {
     "M1": "met",
     "M2": "met",
     "M3": "missing"
   },
   "nice_to_haves": {
-    "N1": { "raw": 2, "weight": 3, "weighted": 6 },
-    "N2": { "raw": 1, "weight": 2, "weighted": 2 }
+    "N1": { "raw": 2, "weight": 3 },
+    "N2": { "raw": 1, "weight": 2 }
   },
   "red_flags": [
     { "id": "R1", "detected": false },
@@ -82,6 +87,6 @@ Emit a single JSON object (no markdown wrapper) with exactly these fields:
 
 - Extract only what is in the CV. Do not infer experience the CV doesn't mention.
 - `screener_note` is for anomalies: ambiguous CV, suspected template, language barrier making parsing hard, etc.
-- If the CV text appears empty or garbled (failed parse), set tier to "Parse error", score_pct to -1, and explain in `screener_note`.
+- If the CV text appears empty or garbled (failed parse), add `"parse_error": true` to your JSON and explain in `screener_note`. (The scorer turns that into tier "Parse error", score_pct -1.) This is the only case where you touch tier/score.
 - Do not include personal opinions about the candidate beyond what the rubric criteria require.
 - Output **only** the JSON object — the skill parses it directly.
