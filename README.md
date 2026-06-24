@@ -13,6 +13,18 @@ Recruiter corrects tiers → feedback-learner updates rubric + examples
 
 The screening logic lives in transparent, version-controlled rubric files — not a black box. Every tier decision is explainable and auditable.
 
+## Prerequisites — Claude Code
+
+This tool runs inside **Claude Code**, Anthropic's desktop app. You need it before anything else.
+
+1. Go to [claude.ai/download](https://claude.ai/download) and download the Claude desktop app for your operating system (Mac or Windows).
+2. Install and open it, then sign in with your Anthropic account.
+3. At the top of the app, click the **Code** tab. This is where all the screening commands live — not the regular chat tab.
+
+> You will need an active Claude subscription (Pro or above) to use Claude Code.
+
+---
+
 ## Installation
 
 You only need to do this once. Choose whichever method is easier for you.
@@ -57,9 +69,9 @@ Use this if you have Git installed and want to receive future updates easily.
 
 ### After installing
 
-1. Open **Claude Code** (the desktop app).
-2. Click **Open Folder** (or `File → Open Folder`) and select the `mceasy-recruitment-agents` folder you just downloaded or cloned.
-3. That's it — the slash commands (`/screen-cv setup`, etc.) are now available in Claude Code's chat input.
+1. Open the Claude desktop app and go to the **Code** tab.
+2. Click **Open Folder** and select the `mceasy-recruitment-agents` folder you just downloaded or cloned.
+3. That's it — the slash commands (`/screen-cv setup`, etc.) are now available in the chat input at the bottom.
 
 ---
 
