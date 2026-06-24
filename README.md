@@ -13,6 +13,56 @@ Recruiter corrects tiers → feedback-learner updates rubric + examples
 
 The screening logic lives in transparent, version-controlled rubric files — not a black box. Every tier decision is explainable and auditable.
 
+## Installation
+
+You only need to do this once. Choose whichever method is easier for you.
+
+---
+
+### Option A — Download as ZIP (no coding tools needed)
+
+1. Go to the repository page in your browser.
+2. Click the green **Code** button near the top right.
+3. Click **Download ZIP**.
+4. Once downloaded, find the ZIP file in your **Downloads** folder and double-click it to unzip. You will get a folder called something like `mceasy-recruitment-agents-main`.
+5. Move that folder somewhere easy to find, for example your **Desktop** or **Documents**.
+
+---
+
+### Option B — Clone with Git
+
+Use this if you have Git installed and want to receive future updates easily.
+
+**On Mac:**
+
+1. Open **Terminal** (press `Cmd + Space`, type `Terminal`, press Enter).
+2. Run this command (paste it and press Enter):
+   ```
+   git clone https://github.com/mceasy/mceasy-recruitment-agents.git
+   ```
+3. A folder called `mceasy-recruitment-agents` will appear in your home directory.
+
+**On Windows:**
+
+1. Open **PowerShell** (press the Windows key, type `PowerShell`, press Enter).
+2. Run this command:
+   ```
+   git clone https://github.com/mceasy/mceasy-recruitment-agents.git
+   ```
+3. A folder called `mceasy-recruitment-agents` will appear in your user folder.
+
+> **Don't have Git?** Download it from [git-scm.com](https://git-scm.com/downloads) and install it first, then repeat the steps above.
+
+---
+
+### After installing
+
+1. Open **Claude Code** (the desktop app).
+2. Click **Open Folder** (or `File → Open Folder`) and select the `mceasy-recruitment-agents` folder you just downloaded or cloned.
+3. That's it — the slash commands (`/screen-cv setup`, etc.) are now available in Claude Code's chat input.
+
+---
+
 ## Quick start
 
 **New position:**
