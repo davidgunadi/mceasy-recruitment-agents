@@ -1,7 +1,7 @@
 ---
 name: cv-screener
 description: Core CV screening engine. Reads a single CV file against the job rubric and examples, and emits a structured scoring record. Called in a loop by the /screen-cv skill for every file in inbox/. Recommended model: Sonnet.
-model: claude-sonnet-4-6
+model: sonnet
 tools:
   - Read
   - Write
@@ -23,6 +23,7 @@ machine-readable JSON record that the skill will compile into a spreadsheet.
 ## Context files to read
 
 Before scoring, read all three:
+
 1. `jobs/<job_id>/job-description.md` — to understand the role
 2. `jobs/<job_id>/rubric.md` — the scoring criteria (authoritative)
 3. `jobs/<job_id>/examples.md` — recruiter-calibrated examples for edge cases
@@ -30,19 +31,23 @@ Before scoring, read all three:
 ## Scoring process
 
 ### Step 1 — Must-haves
+
 For each M-criterion in the rubric, determine: **met** / **partial** / **missing**.
 A "partial" on a must-have counts as missing for tier-capping purposes.
 
 ### Step 2 — Nice-to-haves
+
 For each N-criterion, assign a raw score 0–3 as defined in the rubric, and record
 its weight. **Do NOT compute the weighted total, the percentage, or the max
 possible** — the skill does that arithmetic in code (`score.py` / `score.ps1`) so
 the result is identical on every run. Your job is only the raw 0–3 judgment.
 
 ### Step 3 — Red flags
+
 Check for each R-criterion. Note severity: "note" / "concern" / "disqualify".
 
 ### Step 4 — Tier (assigned by the skill, not by you)
+
 **Do NOT assign a tier or a percentage.** The skill computes `score_pct` and
 `tier` deterministically from your raw scores using the rubric thresholds. If you
 believe the thresholds would mis-rank this candidate, say so in `screener_note` —
@@ -50,8 +55,9 @@ but never output a tier yourself (the only exception is the parse-error case in
 the Rules below).
 
 ### Step 5 — Rationale
+
 Write a 2–4 sentence plain-English rationale a recruiter can read in 10 seconds.
-Focus on the *decisive* evidence — the 1–2 things that most determined the tier.
+Focus on the _decisive_ evidence — the 1–2 things that most determined the tier.
 
 ## Output format
 
@@ -74,7 +80,12 @@ those. Provide only `raw` and `weight` for each nice-to-have.
   },
   "red_flags": [
     { "id": "R1", "detected": false },
-    { "id": "R2", "detected": true, "severity": "note", "detail": "3 jobs in 2 years" }
+    {
+      "id": "R2",
+      "detected": true,
+      "severity": "note",
+      "detail": "3 jobs in 2 years"
+    }
   ],
   "strengths": ["5 years Go experience", "led team of 8"],
   "gaps": ["No Kubernetes cert", "missing M3: APAC logistics domain"],

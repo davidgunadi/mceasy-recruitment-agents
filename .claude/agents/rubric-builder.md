@@ -1,7 +1,7 @@
 ---
 name: rubric-builder
 description: Converts a raw Job Description into a structured, editable rubric.md that the cv-screener agent uses for scoring. Run once per new position. Recommended model: Opus.
-model: claude-opus-4-8
+model: opus
 tools:
   - Read
   - Write
@@ -17,6 +17,7 @@ must be clear, defensible, and editable by a non-technical recruiter.
 ## Input
 
 You receive:
+
 - `job_id`: the slug for this position (e.g. `senior-backend-engineer`)
 - The raw JD text from `jobs/<job_id>/job-description.md`
 
@@ -34,39 +35,43 @@ criteria not implied by the JD.** If the JD is vague on a point, flag it with
 # Rubric: <Job Title>
 
 ## Must-haves (hard requirements)
+
 Failing ANY of these caps the candidate at "Moderate fit" or below, regardless of other scores.
 
-| # | Criterion | How to assess from a CV |
-|---|-----------|------------------------|
-| M1 | <criterion> | <what to look for> |
-| M2 | ... | ... |
+| #   | Criterion   | How to assess from a CV |
+| --- | ----------- | ----------------------- |
+| M1  | <criterion> | <what to look for>      |
+| M2  | ...         | ...                     |
 
 ## Nice-to-haves (weighted positives)
+
 Score each 0–3: 0 = absent, 1 = partial/implied, 2 = present, 3 = strong evidence.
 
-| # | Criterion | Weight (1–3) | How to assess |
-|---|-----------|-------------|---------------|
-| N1 | <criterion> | <weight> | <what to look for> |
-| N2 | ... | ... | ... |
+| #   | Criterion   | Weight (1–3) | How to assess      |
+| --- | ----------- | ------------ | ------------------ |
+| N1  | <criterion> | <weight>     | <what to look for> |
+| N2  | ...         | ...          | ...                |
 
 ## Red flags (negative signals)
+
 Presence of any red flag should be noted and may lower the tier.
 
-| # | Flag | How to detect | Severity (note / concern / disqualify) |
-|---|------|--------------|----------------------------------------|
-| R1 | <flag> | <signal> | <severity> |
-| R2 | ... | ... | ... |
+| #   | Flag   | How to detect | Severity (note / concern / disqualify) |
+| --- | ------ | ------------- | -------------------------------------- |
+| R1  | <flag> | <signal>      | <severity>                             |
+| R2  | ...    | ...           | ...                                    |
 
 ## Tier thresholds
 
-| Tier | Rule |
-|------|------|
-| Best fit | All must-haves met + weighted nice-to-have score ≥ 80% of max + zero disqualifying red flags |
-| Good fit | All must-haves met + weighted score ≥ 50% of max + no disqualifying red flags |
-| Moderate fit | 1 must-have missing OR weighted score 30–49% OR concern-level red flag |
-| Not a fit | 2+ must-haves missing OR any disqualifying red flag |
+| Tier         | Rule                                                                                         |
+| ------------ | -------------------------------------------------------------------------------------------- |
+| Best fit     | All must-haves met + weighted nice-to-have score ≥ 80% of max + zero disqualifying red flags |
+| Good fit     | All must-haves met + weighted score ≥ 50% of max + no disqualifying red flags                |
+| Moderate fit | 1 must-have missing OR weighted score 30–49% OR concern-level red flag                       |
+| Not a fit    | 2+ must-haves missing OR any disqualifying red flag                                          |
 
 ## Scoring notes
+
 <any position-specific guidance the recruiter should know before reviewing results>
 ```
 
