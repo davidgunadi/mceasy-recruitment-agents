@@ -143,7 +143,12 @@ outputs/
 ## Requirements
 
 - Claude Code with access to this repo
-- PDF/DOCX conversion: `pandoc` or `python-docx` for DOCX files (`pip install python-docx`)
+- Nothing else to install. DOCX parsing and score calculation both auto-detect
+  whichever runtime is already on your machine — `pandoc`, `python3`, or
+  PowerShell (built into every Windows install) — and use that. No Python
+  install is required.
+- If none of `pandoc`, `python3`, or PowerShell are available, DOCX files will
+  be skipped with a "parse error" note; PDF and `.txt` CVs are unaffected.
 
 ## Privacy & compliance
 
