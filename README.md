@@ -1,6 +1,6 @@
 # McEasy CV Screening Agents
 
-**Version:** 1.0.0 — see [CHANGELOG.md](CHANGELOG.md)
+**Version:** 1.0.1 — see [CHANGELOG.md](CHANGELOG.md)
 
 AI-assisted CV screening built on Claude Code's agent + skill pattern. A recruiter drops CVs into a folder, runs one command, and gets a ranked spreadsheet with per-criterion explanations. Recruiter feedback flows back to improve scoring over time.
 

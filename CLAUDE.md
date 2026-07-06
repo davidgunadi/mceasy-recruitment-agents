@@ -97,6 +97,6 @@ than guessing.
 - **Do not assume Python or Node is installed.** Some dev machines have neither
   (only PowerShell). Provide a PowerShell path for any script the skill shells
   out to, and pick the runtime that exists at run time.
-- Known gap: the DOCX-parsing step in `SKILL.md` still calls `pandoc`/`python3`
-  and will fail on a Python-less machine. PDFs and `.txt` are unaffected.
-  Convert it to a PowerShell fallback before relying on `.docx` intake.
+- DOCX intake in `SKILL.md` tries `pandoc`, then `python3`, then falls back to
+  `.claude/skills/screen-cv/docx-extract.ps1` (pure PowerShell, no Python
+  needed) — so `.docx` files parse on Python-less Windows machines too.

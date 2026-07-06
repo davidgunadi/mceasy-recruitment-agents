@@ -13,6 +13,18 @@ housekeeping (`.gitignore`, etc.) are not versioned.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-07-06
+
+### Added
+- `.claude/skills/screen-cv/docx-extract.ps1` — pure-PowerShell `.docx` text
+  extraction (reads `word/document.xml` directly from the zip), used as a
+  fallback when neither `pandoc` nor `python3` is available.
+
+### Fixed
+- DOCX intake in `SKILL.md` no longer fails outright on a Python-less Windows
+  machine: it now tries `pandoc`, then `python3`, then the new PowerShell
+  fallback, matching the pattern already used for scoring.
+
 ## [1.0.0] - 2026-07-06
 
 ### Added
@@ -37,5 +49,5 @@ housekeeping (`.gitignore`, etc.) are not versioned.
 
 ### Known issues
 - DOCX intake in `SKILL.md` still shells out to `pandoc`/`python3` and will
-  fail on a Python-less machine; PDFs and `.txt` are unaffected. Needs a
-  PowerShell fallback before `.docx` intake can be relied on.
+  fail on a Python-less machine; PDFs and `.txt` are unaffected. Fixed in
+  1.0.1.

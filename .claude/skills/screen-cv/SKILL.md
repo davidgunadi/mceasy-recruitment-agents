@@ -98,16 +98,24 @@ Usage:
 
    **PDF:** Use the Read tool directly — Claude can read PDF content.
 
-   **DOCX:** Run:
+   **DOCX:** Use whichever runtime exists on the machine, in this order:
    ```bash
-   pandoc "<file>" -t plain --wrap=none 2>/dev/null || python3 -c "
+   # 1. pandoc, if installed:
+   pandoc "<file>" -t plain --wrap=none
+
+   # 2. python3, if installed and pandoc is not:
+   python3 -c "
    import sys
    from docx import Document
    doc = Document(sys.argv[1])
    print('\n'.join(p.text for p in doc.paragraphs))
    " "<file>"
    ```
-   If both fail, note the file as "parse error" and continue with remaining CVs.
+   ```powershell
+   # 3. PowerShell fallback (Windows, no Python needed):
+   powershell -NoProfile -File .claude/skills/screen-cv/docx-extract.ps1 "<file>"
+   ```
+   If all three fail, note the file as "parse error" and continue with remaining CVs.
 
    **TXT:** Read directly.
 
