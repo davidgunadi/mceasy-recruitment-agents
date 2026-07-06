@@ -62,6 +62,36 @@ outputs/
   (History: hand-computed math once divided by the wrong max and bumped a
   candidate from Good fit to Best fit.)
 
+## Versioning
+
+This repo is versioned with [SemVer](https://semver.org/) via `CHANGELOG.md`
+(Keep a Changelog format). MAJOR = breaking/workflow-changing (e.g. a
+sub-command's inputs/outputs change shape, folder conventions change).
+MINOR = new capability (e.g. a new sub-command, a new scoring dimension).
+PATCH = fix or tweak (e.g. algorithm correction, prompt clarification).
+
+A **functional change** — anything that changes what the screening pipeline
+actually does — is:
+- `.claude/agents/*.md` (agent instructions)
+- `.claude/skills/**` (`SKILL.md`, `score.py`, `score.ps1`)
+- `jobs/_TEMPLATE/**` (the scaffold copied into every new job)
+- The rules in this file (`CLAUDE.md`)
+
+**Not** a functional change (no version bump needed):
+- Per-job data: `jobs/<id>/rubric.md`, `job-description.md`, CVs, `outputs/*.xlsx`
+- README wording/formatting
+- Repo housekeeping: `.gitignore`, `.obsidian/`, etc.
+
+Any commit making a functional change must, as part of that same commit (not
+just when asked):
+1. Add a `CHANGELOG.md` entry under the appropriate heading (Added / Changed /
+   Fixed / Removed).
+2. Bump the version in both `CHANGELOG.md` and the `**Version:**` line in
+   `README.md`.
+
+If it's unclear whether a change is "functional" under the above, ask rather
+than guessing.
+
 ## Runtime / environment
 
 - **Do not assume Python or Node is installed.** Some dev machines have neither
