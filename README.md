@@ -15,15 +15,20 @@ Recruiter corrects tiers → feedback-learner updates rubric + examples
 
 The screening logic lives in transparent, version-controlled rubric files — not a black box. Every tier decision is explainable and auditable.
 
-## Prerequisites — Claude Code
+## Prerequisites
 
-This tool runs inside **Claude Code**, Anthropic's desktop app. You need it before anything else.
+Must Have:
 
-1. Go to [claude.ai/download](https://claude.ai/download) and download the Claude desktop app for your operating system (Mac or Windows).
-2. Install and open it, then sign in with your Anthropic account.
-3. At the top of the app, click the **Code** tab. This is where all the screening commands live — not the regular chat tab.
+- [Claude Desktop](https://claude.com/download)
+- [Git](https://git-scm.com/install/)
+- [Python](https://www.python.org/downloads/)
+- [Node](https://nodejs.org/en/download)
+- Claude Pro or Max account
 
-> You will need an active Claude subscription (Pro or above) to use Claude Code.
+- Optional:
+
+- [GitHub Desktop](https://desktop.github.com/download/)
+- [VSCode](https://code.visualstudio.com/download)
 
 ---
 
@@ -51,18 +56,22 @@ Use this if you have Git installed and want to receive future updates easily.
 
 1. Open **Terminal** (press `Cmd + Space`, type `Terminal`, press Enter).
 2. Run this command (paste it and press Enter):
+
    ```
    git clone https://github.com/mceasy/mceasy-recruitment-agents.git
    ```
+
 3. A folder called `mceasy-recruitment-agents` will appear in your home directory.
 
 **On Windows:**
 
 1. Open **PowerShell** (press the Windows key, type `PowerShell`, press Enter).
 2. Run this command:
+
    ```
    git clone https://github.com/mceasy/mceasy-recruitment-agents.git
    ```
+
 3. A folder called `mceasy-recruitment-agents` will appear in your user folder.
 
 > **Don't have Git?** Download it from [git-scm.com](https://git-scm.com/downloads) and install it first, then repeat the steps above.
@@ -80,30 +89,36 @@ Use this if you have Git installed and want to receive future updates easily.
 ## Quick start
 
 **New position:**
+
 ```
 /screen-cv setup
 ```
+
 Paste the JD when prompted, confirm the suggested job ID, then review the generated `rubric.md` before first use.
 
 **Screen CVs:**
+
 ```
 /screen-cv <job-id>
 ```
+
 Drop PDF or DOCX files in `jobs/<job-id>/inbox/` first.
 
 **Apply recruiter feedback:**
+
 ```
 /screen-cv feedback <job-id>
 ```
+
 Fill in `Recruiter override tier` and `Recruiter feedback` columns in the spreadsheet, then run this.
 
 ## Agents
 
-| Agent | Model | Role |
-|-------|-------|------|
-| `rubric-builder` | Opus | Converts a raw JD into a structured `rubric.md` |
-| `cv-screener` | Sonnet | Scores one CV against the rubric; emits a JSON record |
-| `feedback-learner` | Opus | Diffs recruiter corrections vs agent tiers; updates rubric + examples |
+| Agent              | Model  | Role                                                                  |
+| ------------------ | ------ | --------------------------------------------------------------------- |
+| `rubric-builder`   | Opus   | Converts a raw JD into a structured `rubric.md`                       |
+| `cv-screener`      | Sonnet | Scores one CV against the rubric; emits a JSON record                 |
+| `feedback-learner` | Opus   | Diffs recruiter corrections vs agent tiers; updates rubric + examples |
 
 ## Folder structure
 
@@ -131,12 +146,12 @@ outputs/
 
 ## Fit tiers
 
-| Tier | Meaning |
-|------|---------|
-| Best fit | All must-haves met, high nice-to-have score, no red flags |
-| Good fit | All must-haves met, moderate score |
-| Moderate fit | 1 must-have missing or several gaps — worth a skim |
-| Not a fit | Multiple must-haves missing or a hard red flag |
+| Tier         | Meaning                                                   |
+| ------------ | --------------------------------------------------------- |
+| Best fit     | All must-haves met, high nice-to-have score, no red flags |
+| Good fit     | All must-haves met, moderate score                        |
+| Moderate fit | 1 must-have missing or several gaps — worth a skim        |
+| Not a fit    | Multiple must-haves missing or a hard red flag            |
 
 **The agent ranks and explains. The recruiter decides.** Tiers are never auto-rejections.
 
@@ -153,6 +168,7 @@ outputs/
 ## Privacy & compliance
 
 CVs are personal data. For the PoC:
+
 - Keep everything local — do not sync `inbox/` or `processed/` to cloud storage
 - Retain `processed/` files until the position closes + 30 days (or per HR policy)
 - CDSO sign-off required before moving beyond PoC
